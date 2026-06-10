@@ -1,3 +1,11 @@
 c-u 5 backspace - Move selection 5 lines up, use enter for down
 c-u 5 c-p - Jump 5 lines back
 c-u 5 c-n - Jump 5 lines front
+m-g m-g - Goto line
+c-x c-x - return to where you were before goto
+
+// Elite ball knowledge right here
+m-x imenu - jump to func def
+m-s o / m-x occur - search all matches of a regex in current buffer
+
+m-x tabify - All 4 spaces become tabs
