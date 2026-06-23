@@ -14,35 +14,9 @@
 (scroll-bar-mode 0)
 (column-number-mode)
 (show-paren-mode)
-(add-to-list 'default-frame-alist '(font . "Iosevka-12"))
+(add-to-list 'default-frame-alist '(font . "Monaspace Argon Frozen-10.5"))
 (global-whitespace-mode t)
 (setq whitespace-line-column 250)
-
-;;; Whitespace mode
-(defun rc/set-up-whitespace-handling ()
-  (interactive)
-  (whitespace-mode 1)
-  (add-to-list 'write-file-functions 'delete-trailing-whitespace))
-
-(add-hook 'tuareg-mode-hook 'rc/set-up-whitespace-handling)
-(add-hook 'c++-mode-hook 'rc/set-up-whitespace-handling)
-(add-hook 'c-mode-hook 'rc/set-up-whitespace-handling)
-(add-hook 'simpc-mode-hook 'rc/set-up-whitespace-handling)
-(add-hook 'emacs-lisp-mode 'rc/set-up-whitespace-handling)
-(add-hook 'java-mode-hook 'rc/set-up-whitespace-handling)
-(add-hook 'lua-mode-hook 'rc/set-up-whitespace-handling)
-(add-hook 'rust-mode-hook 'rc/set-up-whitespace-handling)
-(add-hook 'scala-mode-hook 'rc/set-up-whitespace-handling)
-(add-hook 'markdown-mode-hook 'rc/set-up-whitespace-handling)
-(add-hook 'haskell-mode-hook 'rc/set-up-whitespace-handling)
-(add-hook 'python-mode-hook 'rc/set-up-whitespace-handling)
-(add-hook 'erlang-mode-hook 'rc/set-up-whitespace-handling)
-(add-hook 'asm-mode-hook 'rc/set-up-whitespace-handling)
-(add-hook 'fasm-mode-hook 'rc/set-up-whitespace-handling)
-(add-hook 'go-mode-hook 'rc/set-up-whitespace-handling)
-(add-hook 'nim-mode-hook 'rc/set-up-whitespace-handling)
-(add-hook 'yaml-mode-hook 'rc/set-up-whitespace-handling)
-(add-hook 'porth-mode-hook 'rc/set-up-whitespace-handling)
 
 ;;; Auto update dired
 ;; Auto refresh buffers
@@ -53,7 +27,7 @@
 (setq auto-revert-verbose nil)
 
 ;; Enable relative line numbers globally
-(setq display-line-numbers-type 'relative)
+;(setq display-line-numbers-type 'relative)
 (global-display-line-numbers-mode)
 
 ;; Default tab width
@@ -63,7 +37,10 @@
 ;; Inhibit splash screen
 (setq inhibit-startup-screen t)
 
-(rc/require-theme 'gruber-darker)
+;(rc/require-theme 'gruber-darker)
+(rc/require 'tokyo-night)
+(load-theme 'tokyo-night t)
+(load-theme 'tokyo-night-day t)
 
 ;;; Ido
 (rc/require 'smex 'ido-completing-read+)
@@ -251,6 +228,7 @@
 (defun my-tabify-buffer-before-save ()
   "Tabify the entire buffer if the major mode is C++ or Emacs Lisp."
   (when (member major-mode '(c++-mode emacs-lisp-mode))
+	(delete-trailing-whitespace)
 	(tabify (point-min) (point-max))))
 
 (add-hook 'before-save-hook #'my-tabify-buffer-before-save)
