@@ -40,7 +40,7 @@
 ;(rc/require-theme 'gruber-darker)
 (rc/require 'tokyo-night)
 (load-theme 'tokyo-night t)
-(load-theme 'tokyo-night-day t)
+;(load-theme 'tokyo-night-day t)
 
 ;;; Ido
 (rc/require 'smex 'ido-completing-read+)
@@ -117,6 +117,7 @@
 ;; Apply this rule to both C and C++ modes
 (add-hook 'c-mode-hook 'my-c-mode-function-highlights)
 (add-hook 'c++-mode-hook 'my-c-mode-function-highlights)
+(add-hook 'csharp-mode-hook 'my-c-mode-function-highlights)
 
 ;;; yasnippet
 (rc/require 'yasnippet)
@@ -147,6 +148,12 @@
 
 (global-set-key (kbd "M-u") 'backward-word)
 (global-set-key (kbd "M-o") 'forward-word)
+(with-eval-after-load 'mhtml-mode ; A fix for stupid html
+  (define-key mhtml-mode-map (kbd "M-o") 'forward-word))
+
+(with-eval-after-load 'html-mode
+  (define-key html-mode-map (kbd "M-o") 'forward-word))
+
 
 (global-set-key (kbd "M-h") 'move-beginning-of-line)
 (global-set-key (kbd "M-;") 'move-end-of-line)	; overwrites comment-dwim
@@ -227,7 +234,7 @@
 ;;; Tabify before save
 (defun my-tabify-buffer-before-save ()
   "Tabify the entire buffer if the major mode is C++ or Emacs Lisp."
-  (when (member major-mode '(c++-mode emacs-lisp-mode))
+  (when (member major-mode '(c++-mode emacs-lisp-mode csharp-mode))
 	(delete-trailing-whitespace)
 	(tabify (point-min) (point-max))))
 
